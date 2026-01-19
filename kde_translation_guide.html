@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-01-02" />
+  <title>KDE の日本語翻訳ガイド</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">KDE の日本語翻訳ガイド</h1>
+<p class="date">2026-01-02</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#はじめに" id="toc-はじめに">はじめに</a></li>
+<li><a href="#翻訳ファイルをダウンロード"
+id="toc-翻訳ファイルをダウンロード">翻訳ファイルをダウンロード</a></li>
+<li><a href="#メッセージを実際のアプリで表示"
+id="toc-メッセージを実際のアプリで表示">メッセージを実際のアプリで表示</a></li>
+<li><a href="#翻訳する際の注意"
+id="toc-翻訳する際の注意">翻訳する際の注意</a></li>
+<li><a href="#翻訳したファイルをメーリングリストに送付"
+id="toc-翻訳したファイルをメーリングリストに送付">翻訳したファイルをメーリングリストに送付</a></li>
+<li><a href="#transifex-などに移行する予定は"
+id="toc-transifex-などに移行する予定は">Transifex
+などに移行する予定は？</a></li>
+</ul>
+</nav>
+<h2 id="はじめに">はじめに</h2>
+<p>これは、10数年ぶりに KDE を翻訳したときの作業メモです。<br />
+公式の情報は<a
+href="https://jp.kde.org/community/getinvolved/translation/">こちら</a>。</p>
+<h2 id="翻訳ファイルをダウンロード">翻訳ファイルをダウンロード</h2>
+<p>翻訳ファイルはこちらに置かれています。<br />
+<a
+href="https://websvn.kde.org/trunk/l10n-support/ja/summit/messages/">https://websvn.kde.org/trunk/l10n-support/ja/summit/messages/</a></p>
+<p>「ark」を翻訳する場合は上のページにある「ark」をクリック。<br />
+「ark.po」の右側にある Rev 番号をクリック。<br />
+「download」を右クリックして「名前を付けてリンク先を保存」。</p>
+<p>poedit などの翻訳アプリで「ark.po」を翻訳。<br />
+30分ほど翻訳したらいったんやめて、次のステップに進んでください。なにか間違いがあったとき、2時間分の作業をやり直すのはつらいものです。<br />
+全訳にこだわる必要はありません。まれにしか出ないエラーメッセージは後回しで良い。メニューや設定を先に翻訳すると、快適性が格段に上がります。</p>
+<h2
+id="メッセージを実際のアプリで表示">メッセージを実際のアプリで表示</h2>
+<p>翻訳したメッセージをインストール。</p>
+<pre><code>msgfmt ark.po -o ark.mo
+sudo cp ark.mo /usr/share/locale/ja/LC_MESSAGES/</code></pre>
+<p>アプリを再起動して、翻訳が反映されているか確認してください。</p>
+<h2 id="翻訳する際の注意">翻訳する際の注意</h2>
+<ul>
+<li>「S&amp;ync」は「同期(&amp;Y)」のように翻訳します。「(&amp;Y)」はショートカットキー</li>
+<li>英単語の前後には半角スペースを置きます (例: この Plasma は)</li>
+<li>かっこ () は半角です</li>
+<li>カタカナ語の語尾は伸ばしません (OK: ディレクトリ, NG:
+ディレクトリー)</li>
+</ul>
+<p>注意事項を過剰に気にする必要はありません。気軽に翻訳してください。「ディレクトリー」と翻訳した場合でも、「ディレクトリ」への置換は一瞬でできます。</p>
+<h2
+id="翻訳したファイルをメーリングリストに送付">翻訳したファイルをメーリングリストに送付</h2>
+<blockquote>
+<p>KDE の GitLab で Issues として投稿<a
+href="https://invent.kde.org/websites/jp-kde-org/-/merge_requests/39">できるようになる</a>ようです。<br />
+KDE Japan の Issues はこちら。<br />
+<a
+href="https://invent.kde.org/teams/kde-japan/l10n/-/issues">https://invent.kde.org/teams/kde-japan/l10n/-/issues</a></p>
+</blockquote>
+<p>メーリングリストに送付する場合は、<a
+href="https://mail.kde.org/mailman/listinfo/kde-jp">こちら</a>にメールアドレスを入力して、メーリングリストへの入会を申し込んでください。名前とパスワードは省略可能。<br />
+退会するときは同じページに「Kde-jp
+からの退会」のボックスがあるので、メールアドレスを入力。入会も退会も数分で自動的に処理されます。</p>
+<p>入会したら <code>kde-jp@kde.org</code>
+に次のようなメールを送ってください。</p>
+<pre><code>件名
+翻訳しました: ark.po
+
+本文
+ark.po を翻訳しました。マージをお願いします。</code></pre>
+<p>「ark.po」を圧縮してメールに添付。</p>
+<p>KDE のコミッタがファイルを確認して、KDE
+の公式リポジトリにマージします。何日か待ってください。</p>
+<h2 id="transifex-などに移行する予定は">Transifex
+などに移行する予定は？</h2>
+<p>英語フォーラムで「Weblate
+に移行する予定はありますか？」という質問が出ていますが、2023年8月時点で<a
+href="https://discuss.kde.org/t/any-plans-to-move-to-weblate-for-translation/3415">その予定はない</a>とのこと。<br />
+KDE の翻訳者は KDE のユーザからしか生まれませんが、ほとんどの KDE
+ユーザにとって、今の翻訳方法は<a
+href="https://www.reddit.com/r/kde/comments/1024y46/any_plans_take_localisation_of_kde_to_a_better/?tl=ja">困難だと思う</a>。ここに書いたことを調べて、翻訳アプリの使い方を覚えて、メーリングリストでやり取りしないといけない。2024年9月の時点で、活発に日本語翻訳をしている人はゼロでした。</p>
+<p>翻訳のしやすさと既存の翻訳の完成度を求めるなら、デスクトップ環境は <a
+href="https://translate.lxqt-project.org/languages/ja/">LXQt</a> / <a
+href="https://explore.transifex.com/xfce/">Xfce</a> / <a
+href="https://explore.transifex.com/buddiesofbudgie/">Budgie</a>
+などが良いと思います。KDE のようにメッセージ数が膨大ではないし、翻訳に
+Transifex や Weblate
+を使用しているので、ブラウザでプロジェクトページを開くだけで翻訳できる。</p>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>

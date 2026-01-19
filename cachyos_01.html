@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-12-05" />
+  <title>CachyOS のインストール</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">CachyOS のインストール</h1>
+<p class="date">2025-12-05</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cachyos-とは" id="toc-cachyos-とは">CachyOS とは</a></li>
+<li><a href="#ダウンロード" id="toc-ダウンロード">ダウンロード</a></li>
+<li><a href="#ventoy-をusbメモリにインストール"
+id="toc-ventoy-をusbメモリにインストール">Ventoy
+をUSBメモリにインストール</a></li>
+<li><a href="#cachyos-のisoファイルをusbメモリにコピー"
+id="toc-cachyos-のisoファイルをusbメモリにコピー">CachyOS
+のISOファイルをUSBメモリにコピー</a></li>
+<li><a href="#cachyos-をシステムにインストール"
+id="toc-cachyos-をシステムにインストール">CachyOS
+をシステムにインストール</a></li>
+</ul>
+</nav>
+<h2 id="cachyos-とは">CachyOS とは</h2>
+<p>CachyOS は Arch Linux をベースにしたディストリビューション。<br />
+Calamares で簡単にインストールできる。<br />
+日本語フォントが入っているので文字化けしない。<br />
+オンラインインストールを行うので、最新の環境をすぐに使える。<br />
+CPUに応じて最適化されたパッケージを使用するので、性能が向上する。</p>
+<h2 id="ダウンロード">ダウンロード</h2>
+<p><a href="https://cachyos.org/download/">こちら</a>。</p>
+<h2 id="ventoy-をusbメモリにインストール">Ventoy
+をUSBメモリにインストール</h2>
+<p><a href="https://github.com/ventoy/Ventoy/releases">Ventoy</a>
+はブータブルUSBドライブを作成するツール。複数のイメージファイルをUSBドライブにコピーできる。</p>
+<p>ventoy-*-linux.tar.gz をダウンロードして展開。</p>
+<p>USBメモリを差し込んで Ventoy のインストーラーを起動。</p>
+<pre><code>./VentoyGUI.x86_64</code></pre>
+<p><img src="images/cachyos_01/cachyos_50.webp" /></p>
+<p>インストール先を必ず確認。<br />
+新規の場合は「Install」を選択。USBメモリ内のファイルはすべて消える。<br />
+アップデートの場合は「Update」を選択。USBメモリ内のファイルは維持される。</p>
+<h2 id="cachyos-のisoファイルをusbメモリにコピー">CachyOS
+のISOファイルをUSBメモリにコピー</h2>
+<p>CachyOS のISOファイルをUSBメモリにコピーする。<br />
+<a href="https://kubuntu.org/getkubuntu/">Kubuntu</a>
+などの利用者が多いOSのISOファイルもコピーしておく。CachyOS
+のインストールが失敗したとき、別のOSのISOファイルがないと何もできなくなる。</p>
+<h2 id="cachyos-をシステムにインストール">CachyOS
+をシステムにインストール</h2>
+<p>USBメモリを挿してPCの電源を入れ、ブートメニューキーを押す。<br />
+ブートメニューキーは次のとおり。</p>
+<table>
+<thead>
+<tr>
+<th>メーカー</th>
+<th>ブートメニューキー</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASUS</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>ASRock</td>
+<td>F11</td>
+</tr>
+<tr>
+<td>GIGABYTE</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>MSI</td>
+<td>F11</td>
+</tr>
+</tbody>
+</table>
+<p>ブートメニューキーを押すとブートデバイスの選択画面が出る。<br />
+あらかじめUEFIで「CSM
+Support」を無効にしておくと、UEFIブートに対応していないデバイスが非表示になるので、選択が楽になる。</p>
+<p><img src="images/cachyos_01/cachyos_51.webp" /><br />
+Ventoy のメニューで ISO ファイルを選択。<br />
+しばらく待つとデスクトップが起動する。</p>
+<p><img src="images/cachyos_01/cachyos_52.webp" /><br />
+文字が小さいときは壁紙を右クリックして「Configure Display
+Settings…」を選択。</p>
+<p><img src="images/cachyos_01/cachyos_53.webp" /><br />
+「Global scale」のスライダーを右に動かして「125%」にする。</p>
+<p><img src="images/cachyos_01/cachyos_01.webp" /><br />
+「Launch installer」をクリック。</p>
+<p><img src="images/cachyos_01/cachyos_02.webp" /><br />
+「Systemd-boot (Default)」をクリック。</p>
+<p><img src="images/cachyos_01/cachyos_04.webp" /><br />
+ゾーンが「Tokyo」になっているのを確認。「次へ」をクリック。</p>
+<p><img src="images/cachyos_01/cachyos_05.webp" /><br />
+キーボードモデルが「Japanese」になっているのを確認。</p>
+<p><img src="images/cachyos_01/cachyos_06.webp" /><br />
+「手動パーティション」を選択。</p>
+<p><img src="images/cachyos_01/cachyos_07.webp" /><br />
+パーティションを作成。<br />
+私は次のようにしています。余裕をもたせるなら「/」は 30000 MiB
+にする。</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 26%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr>
+<th>パーティション</th>
+<th>サイズ</th>
+<th>フォーマット</th>
+<th>ファイルシステム</th>
+<th>フラグ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/boot</td>
+<td>2048 MiB</td>
+<td>する</td>
+<td>fat32</td>
+<td>boot</td>
+</tr>
+<tr>
+<td>/</td>
+<td>20000 MiB</td>
+<td>する</td>
+<td>ext4</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>残り全部</td>
+<td>しない</td>
+<td>ext4</td>
+<td>なし</td>
+</tr>
+</tbody>
+</table>
+<p>「/home」は初めて作成する場合のみフォーマット。</p>
+<p><img src="images/cachyos_01/cachyos_08.webp" /><br />
+/boot パーティションの編集例。</p>
+<p><img src="images/cachyos_01/cachyos_09.webp" /><br />
+デスクトップを選択。</p>
+<p><img src="images/cachyos_01/cachyos_10.webp" /><br />
+インストールするパッケージを選択。</p>
+<p><img src="images/cachyos_01/cachyos_11.webp" /><br />
+ユーザー名とパスワードを設定。</p>
+<p><img src="images/cachyos_01/cachyos_12.webp" /><br />
+内容を確認して「インストール」をクリック。</p>
+<p>インストールが終わったら再起動して<a
+href="arch_linux_01.html">設定を行う</a>。</p>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>

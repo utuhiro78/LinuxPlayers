@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-12-05" />
+  <title>Arch Linux の設定2</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Arch Linux の設定2</h1>
+<p class="date">2025-12-05</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cpuの脆弱性が緩和されているか確認"
+id="toc-cpuの脆弱性が緩和されているか確認">CPUの脆弱性が緩和されているか確認</a></li>
+<li><a href="#wine-の設定" id="toc-wine-の設定">Wine の設定</a></li>
+<li><a href="#音が出ない場合"
+id="toc-音が出ない場合">音が出ない場合</a></li>
+<li><a href="#midi-ファイルを再生" id="toc-midi-ファイルを再生">MIDI
+ファイルを再生</a></li>
+<li><a href="#不要な-uefi-ブートエントリを削除"
+id="toc-不要な-uefi-ブートエントリを削除">不要な UEFI
+ブートエントリを削除</a></li>
+<li><a href="#mousepad-のメニューバーを表示"
+id="toc-mousepad-のメニューバーを表示">mousepad
+のメニューバーを表示</a></li>
+<li><a href="#mousepad-で文字を置換すると強制終了してしまう場合"
+id="toc-mousepad-で文字を置換すると強制終了してしまう場合">mousepad
+で文字を置換すると強制終了してしまう場合</a></li>
+<li><a href="#lxqt-アイコンをクリックしても数十秒間起動しない場合"
+id="toc-lxqt-アイコンをクリックしても数十秒間起動しない場合">LXQt:
+アイコンをクリックしても数十秒間起動しない場合</a></li>
+<li><a href="#音量をショートカットキーで調節"
+id="toc-音量をショートカットキーで調節">音量をショートカットキーで調節</a></li>
+<li><a href="#画面の明るさをショートカットキーで調節"
+id="toc-画面の明るさをショートカットキーで調節">画面の明るさをショートカットキーで調節</a></li>
+<li><a href="#メモリクロックを確認"
+id="toc-メモリクロックを確認">メモリクロックを確認</a></li>
+<li><a href="#home-のバックアップと復元"
+id="toc-home-のバックアップと復元">$HOME のバックアップと復元</a></li>
+<li><a href="#ssd-の書き込み量を確認"
+id="toc-ssd-の書き込み量を確認">SSD の書き込み量を確認</a></li>
+<li><a href="#ssd-の温度を確認" id="toc-ssd-の温度を確認">SSD
+の温度を確認</a></li>
+<li><a href="#ssd-の健康状態を確認" id="toc-ssd-の健康状態を確認">SSD
+の健康状態を確認</a></li>
+<li><a href="#ext4-の断片化状態を確認"
+id="toc-ext4-の断片化状態を確認">ext4 の断片化状態を確認</a></li>
+<li><a href="#ext4-の予約ブロックを-0-にする"
+id="toc-ext4-の予約ブロックを-0-にする">ext4 の予約ブロックを 0
+にする</a></li>
+<li><a href="#wdの-intellipark-を回避"
+id="toc-wdの-intellipark-を回避">WDの IntelliPark を回避</a></li>
+<li><a href="#キーリピートを有効にする"
+id="toc-キーリピートを有効にする">キーリピートを有効にする</a></li>
+<li><a href="#分後にサスペンド"
+id="toc-分後にサスペンド">60分後にサスペンド</a></li>
+<li><a href="#openbox-マウスホイールでウィンドウを前面に出す"
+id="toc-openbox-マウスホイールでウィンドウを前面に出す">Openbox:
+マウスホイールでウィンドウを前面に出す</a></li>
+<li><a href="#個人的に必要なパッケージ"
+id="toc-個人的に必要なパッケージ">個人的に必要なパッケージ</a></li>
+</ul>
+</nav>
+<h3
+id="cpuの脆弱性が緩和されているか確認">CPUの脆弱性が緩和されているか確認</h3>
+<pre><code>wget https://github.com/speed47/spectre-meltdown-checker/raw/master/spectre-meltdown-checker.sh
+sudo sh spectre-meltdown-checker.sh</code></pre>
+<p>「SUMMARY」がすべて「OK」（緑色）になっていれば問題ない。</p>
+<h3 id="wine-の設定">Wine の設定</h3>
+<p>Arch の Wine パッケージは <a
+href="https://archlinux.org/news/transition-to-the-new-wow64-wine-and-wine-staging/">wow64
+ビルドに変更された</a>。これにより multilib が不要になった。</p>
+<pre><code>yay -S --needed wine-staging
+ln -sf ~/.wine/drive_c ~
+
+# Winetricks
+wget -N https://raw.githubusercontent.com/Winetricks/winetricks/refs/heads/master/src/winetricks
+chmod a+x winetricks
+sudo mv winetricks /usr/bin/winetricks
+
+# Fonts
+winetricks -f fakejapanese
+
+# DXVK
+winetricks -f dxvk</code></pre>
+<h3 id="音が出ない場合">音が出ない場合</h3>
+<pre><code>yay -S --needed pavucontrol
+pavucontrol</code></pre>
+<p><img src="images/arch_01/arch_16.webp" /><br />
+「設定」タブを開いて、使用しないデバイスを「オフ」にする。</p>
+<h3 id="midi-ファイルを再生">MIDI ファイルを再生</h3>
+<pre><code>wget https://github.com/mrbumpy409/GeneralUser-GS/archive/refs/heads/main.zip -O GeneralUser-GS-main.zip
+7z x GeneralUser-GS-main.zip
+cd GeneralUser-GS-main/
+
+fluidsynth -a pipewire -m alsa_seq -r 48000 -g 0.8 -z 128 GeneralUser-GS.sf2 &quot;demo MIDIs/The HYBRID Collage (v2.0) - by S. Christian Collins.mid&quot;</code></pre>
+<h3 id="不要な-uefi-ブートエントリを削除">不要な UEFI
+ブートエントリを削除</h3>
+<p>BootCurrent の番号を確認。</p>
+<pre><code>efibootmgr
+
+# BootCurrent: 0000
+# Timeout: 1 seconds
+# BootOrder: 0000,0001
+# Boot0000* Linux Boot Manager
+# Boot0001* ubuntu</code></pre>
+<p>BootCurrent 以外のエントリを削除。</p>
+<pre><code>sudo efibootmgr -b 0001 -B
+
+# BootCurrent: 0000
+# Timeout: 1 seconds
+# BootOrder: 0000
+# Boot0000* Linux Boot Manager</code></pre>
+<h3 id="mousepad-のメニューバーを表示">mousepad
+のメニューバーを表示</h3>
+<p>mousepad を起動して「Ctrl+M」を押す。<br />
+gsettings で変更する場合は次を実行。</p>
+<pre><code>gsettings set org.xfce.mousepad.preferences.window menubar-visible true</code></pre>
+<h3 id="mousepad-で文字を置換すると強制終了してしまう場合">mousepad
+で文字を置換すると強制終了してしまう場合</h3>
+<pre><code>rm -rf ~/.config/dconf/</code></pre>
+<h3 id="lxqt-アイコンをクリックしても数十秒間起動しない場合">LXQt:
+アイコンをクリックしても数十秒間起動しない場合</h3>
+<pre><code>sudo pacman -Rdd xdg-desktop-portal-gnome
+sudo pacman -S xdg-desktop-portal-lxqt</code></pre>
+<h3
+id="音量をショートカットキーで調節">音量をショートカットキーで調節</h3>
+<p>次のコマンドをショートカットキーに登録する。</p>
+<pre><code># 音量アップ
+pactl set-sink-volume @DEFAULT_SINK@ +2%
+
+# 音量ダウン
+pactl set-sink-volume @DEFAULT_SINK@ -2%</code></pre>
+<h3
+id="画面の明るさをショートカットキーで調節">画面の明るさをショートカットキーで調節</h3>
+<p>アクティブなモニタを確認。</p>
+<pre><code>xrandr --listactivemonitors
+
+# 0: +*HDMI-A-0 1920/708x1080/398+0+0  HDMI-A-0</code></pre>
+<p>次のコマンドをショートカットキーに登録する。</p>
+<pre><code># 画面の明るさを上げる
+xrandr --output HDMI-A-0 --brightness 1.2
+
+# 画面の明るさを元に戻す
+xrandr --output HDMI-A-0 --brightness 1</code></pre>
+<p>暗めの場面のとき一時的に明るくできて便利。</p>
+<h3 id="メモリクロックを確認">メモリクロックを確認</h3>
+<pre><code>udevadm info -e | grep -e MEMORY_DEVICE | grep SPEED
+
+# E: MEMORY_DEVICE_1_SPEED_MTS=4000
+# E: MEMORY_DEVICE_1_CONFIGURED_SPEED_MTS=4000
+# E: MEMORY_DEVICE_3_SPEED_MTS=4000
+# E: MEMORY_DEVICE_3_CONFIGURED_SPEED_MTS=4000</code></pre>
+<h3 id="home-のバックアップと復元">$HOME のバックアップと復元</h3>
+<p>$HOME にある 10MB 以下のファイルを $HOME/_tmp/home_bak/
+にバックアップする。</p>
+<pre><code>mkdir -p $HOME/_tmp
+
+rsync -av \
+--max-size=10m \
+--delete \
+--delete-excluded \
+--exclude=&quot;_tmp*&quot; \
+--exclude=&quot;tmp_*&quot; \
+--exclude=&quot;*cache&quot; \
+--exclude=&quot;*Cache&quot; \
+--exclude=&quot;.icons&quot; \
+--exclude=&quot;.local/share/icons&quot; \
+--exclude=&quot;.local/share/Trash&quot; \
+$HOME/ $HOME/_tmp/home_bak/
+
+cd $HOME/_tmp/
+tar --zstd -cf home_bak.tar.zst home_bak/</code></pre>
+<p>home_bak.tar.zst をUSBメモリに保存。<br />
+これがあればSSDが壊れてもパスワードや設定ファイルを残せる。</p>
+<h4 id="home-を復元">$HOME を復元</h4>
+<pre><code># tmpfs にファイルを解凍
+tar -xf home_bak.tar.zst -C /tmp/
+cd /tmp/
+rsync -av /tmp/home_bak/ $HOME/</code></pre>
+<p>再起動する。</p>
+<h3 id="ssd-の書き込み量を確認">SSD の書き込み量を確認</h3>
+<pre><code>yay -S --needed smartmontools
+sudo smartctl -a /dev/nvme0 | grep &quot;Data Units Written&quot;
+
+# Data Units Written: 462,559 [236 GB]</code></pre>
+<h3 id="ssd-の温度を確認">SSD の温度を確認</h3>
+<pre><code>sudo smartctl -a /dev/nvme0 | grep Temperature
+
+# Temperature: 45 Celsius</code></pre>
+<h3 id="ssd-の健康状態を確認">SSD の健康状態を確認</h3>
+<p>SMART 情報で確認。</p>
+<pre><code>sudo smartctl -a /dev/nvme0 | grep &quot;SMART overall-health&quot;
+
+# SMART overall-health self-assessment test result: PASSED</code></pre>
+<p>必要ならショートテストを行う。</p>
+<pre><code>sudo smartctl -t short /dev/nvme0</code></pre>
+<h3 id="ext4-の断片化状態を確認">ext4 の断片化状態を確認</h3>
+<p>例として /home パーティションの断片化状態を確認する。<br />
+最初に /home のデバイス名を調べる。</p>
+<pre><code>df | grep home
+
+# /dev/nvme0n1p3 1.8T 516G 1.3T 29% /home</code></pre>
+<p>/dev/nvme0n1p3 の断片化状態を確認。</p>
+<pre><code>sudo e4defrag -c /dev/nvme0n1p3
+
+# Fragmentation score               0
+# [0-30 no problem: 31-55 a little bit fragmented: 56- needs defrag]
+# This device (/dev/nvme0n1p3) does not need defragmentation.
+# Done.</code></pre>
+<h3 id="ext4-の予約ブロックを-0-にする">ext4 の予約ブロックを 0
+にする</h3>
+<p>ext4 のデフォルトでは 5% の領域が<a
+href="https://wiki.archlinux.org/index.php/ext4#Reserved_blocks">予約ブロック</a>になっている。これを解放すると空き容量が増える。<br />
+例として /home パーティションの予約ブロックを開放する。<br />
+最初に /home のデバイス名を調べる。</p>
+<pre><code>df | grep home
+
+# /dev/nvme0n1p3 1.8T 516G 1.3T 29% /home</code></pre>
+<p>/dev/nvme0n1p3 の予約ブロックを 0 にする。</p>
+<pre><code>sudo tune2fs -m 0 /dev/nvme0n1p3</code></pre>
+<h3 id="wdの-intellipark-を回避">WDの IntelliPark を回避</h3>
+<p>7秒ごとにSMART情報を読み込んで、IntelliPark を回避する。</p>
+<pre><code>mousepad prevent-intellipark-sda</code></pre>
+<p>次の行を貼り付けて保存。「/dev/sda」はデバイスの場所。環境に応じて変更する。</p>
+<pre><code>#!/bin/sh
+
+while true
+do
+    sudo smartctl -a /dev/sda | grep Load_Cycle_Count
+    sleep 7
+done</code></pre>
+<p>インストール。</p>
+<pre><code>chmod a+x prevent-intellipark-sda
+sudo cp prevent-intellipark-sda /usr/bin/</code></pre>
+<p>実行。</p>
+<pre><code>sudo prevent-intellipark-sda</code></pre>
+<p>30秒ほど待って「Load_Cycle_Count」が増えなければ成功。</p>
+<h3 id="キーリピートを有効にする">キーリピートを有効にする</h3>
+<pre><code>xset r on</code></pre>
+<h3 id="分後にサスペンド">60分後にサスペンド</h3>
+<pre><code>date &amp;&amp; sleep 60m &amp;&amp; systemctl suspend</code></pre>
+<h3 id="openbox-マウスホイールでウィンドウを前面に出す">Openbox:
+マウスホイールでウィンドウを前面に出す</h3>
+<pre><code>mousepad ~/.config/openbox/rc.xml</code></pre>
+<p>&lt;context name=“Client”&gt; の下に次の行を加える。</p>
+<pre><code>    &lt;context name=&quot;Client&quot;&gt;
+      &lt;mousebind button=&quot;Up&quot; action=&quot;Click&quot;&gt;
+        &lt;action name=&quot;Focus&quot;/&gt;
+        &lt;action name=&quot;Raise&quot;/&gt;
+      &lt;/mousebind&gt;
+      &lt;mousebind button=&quot;Down&quot; action=&quot;Click&quot;&gt;
+        &lt;action name=&quot;Focus&quot;/&gt;
+        &lt;action name=&quot;Raise&quot;/&gt;
+      &lt;/mousebind&gt;</code></pre>
+<h3 id="個人的に必要なパッケージ">個人的に必要なパッケージ</h3>
+<pre><code># パッケージ
+yay -S --needed bash-completion chromium cmake dosfstools evince \
+filezilla file-roller fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt \
+filezilla gnome-disk-utility less libva-utils lm_sensors mousepad mpv \
+noto-fonts noto-fonts-emoji 7zip fuse pavucontrol poppler-data flake8 \
+python-jaconv ripgrep ristretto rsync vulkan-radeon \
+webp-pixbuf-loader wget xf86-video-amdgpu xfce4-sensors-plugin \
+xorg-xrandr yt-dlp
+
+# mousepad のカーソル位置を常に1行目にする
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+cp -f /usr/share/applications/org.xfce.mousepad.desktop .
+sed -i -e &#39;s,Exec=mousepad %U$,Exec=mousepad -l 1 %U,g&#39; org.xfce.mousepad.desktop
+sudo cp org.xfce.mousepad.desktop /usr/share/applications/org.xfce.mousepad.desktop
+
+# アップデートが来ても無視するパッケージ
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+cp /etc/pacman.conf .
+sed -i -e &#39;s,#IgnorePkg   =,IgnorePkg   = fcitx5-mozc-ut,g&#39; pacman.conf
+sudo mv -f pacman.conf /etc/pacman.conf
+
+# ファイアウォールを設定
+yay -S --needed ufw
+sudo ufw enable
+sudo systemctl enable ufw
+sudo ufw default deny
+sudo ufw allow from 192.168.0.0/24
+sudo ufw limit ssh
+
+# ファイアウォールの例外アプリを追加
+# 追加できるアプリは sudo ufw app list で確認
+sudo ufw allow qBittorrent
+
+# ファイアウォールの状態を確認
+sudo ufw status
+
+# ファイアウォールの例外アプリを削除
+# sudo ufw delete allow qBittorrent
+
+# マウスカーソル
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+wget https://github.com/yeyushengfan258/Future-cursors/archive/refs/heads/master.zip -O Future-cursors-master.zip
+7z x Future-cursors-master.zip
+cd Future-cursors-master/
+sh install.sh
+
+# アイコン
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+wget -qO- https://git.io/papirus-icon-theme-install | env DESTDIR=&quot;$HOME/.local/share/icons&quot; sh
+
+# Mozc 用のアイコンを削除
+rm -f ~/.local/share/icons/Papirus*/*/*/*mozc*
+
+# テーマ
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+wget https://github.com/daniruiz/skeuos-gtk/archive/refs/heads/master.zip -O skeuos-gtk-master.zip
+7z x skeuos-gtk-master.zip
+mkdir -p ~/.local/share/themes
+rm -rf ~/.local/share/themes/Skeuos-Blue-*
+mv skeuos-gtk-master/themes/Skeuos-Blue-* ~/.local/share/themes/
+
+# ~/.bashrc の設定
+printf &#39;EDITOR=/usr/bin/mousepad
+export XCURSOR_PATH=&quot;~/.local/share/icons/&quot;
+
+alias df=&quot;df -h -x tmpfs&quot;
+alias du=&quot;du -h&quot;
+
+# ディレクトリをサイズ順に並べる
+alias duu=&quot;du -BM -d1 | sort -n&quot;
+
+# ファイルリストを縦に並べる
+alias ls=&quot;ls -1&quot;
+
+alias rg=&quot;rg --ignore-case \
+  --colors path:fg:0x34,0x83,0xE3 \
+  --colors line:fg:0x34,0x83,0xE3 \
+  --colors match:bg:0x34,0x83,0xE3 \
+  --colors match:fg:white&quot;
+
+alias yt-dlp=&quot;yt-dlp --trim-filenames 100&quot;
+alias yt-dlp-fhd=&quot;yt-dlp -S res:1080 --trim-filenames 100&quot;
+&#39; &gt; ~/.bashrc</code></pre>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>

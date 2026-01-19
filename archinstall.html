@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-11-18" />
+  <title>archinstall で Arch Linux をインストール</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">archinstall で Arch Linux をインストール</h1>
+<p class="date">2025-11-18</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#archinstall-とは" id="toc-archinstall-とは">archinstall
+とは</a></li>
+<li><a href="#archinstall-を日本語で使用"
+id="toc-archinstall-を日本語で使用">archinstall を日本語で使用</a></li>
+<li><a href="#実行時の動画" id="toc-実行時の動画">実行時の動画</a></li>
+</ul>
+</nav>
+<h2 id="archinstall-とは">archinstall とは</h2>
+<p><a href="https://github.com/archlinux/archinstall">archinstall</a> は
+Arch Linux のインストーラー。ガイドに沿って進めれば、簡単に Arch Linux
+をインストールできる。</p>
+<h2 id="archinstall-を日本語で使用">archinstall を日本語で使用</h2>
+<p>Arch Linux のISOファイルでは日本語を表示できないので、<a
+href="endeavour_01.html">EndeavourOS</a> を使用する。</p>
+<p>EndeavourOS を起動。</p>
+<p>ブラウザで今見ているページを開く。</p>
+<p>ターミナルを開いてウィンドウを最大化。ウィンドウが小さいと
+archinstall の表示が崩れる。</p>
+<p>次のコマンドを貼り付けて実行。</p>
+<pre><code># Arch Linux の公式リポジトリのみを使用する
+wget https://gitlab.archlinux.org/archlinux/packaging/\
+packages/pacman/-/raw/main/pacman.conf
+sudo mv pacman.conf /etc/
+sudo pacman -Sy
+
+# keyring を更新
+sudo pacman -S --needed archlinux-keyring
+
+# 高速なダウンロードサーバを選択。しばらく待つ
+sudo pacman -S --needed reflector rsync
+sudo reflector -c jp -f 5 --save /etc/pacman.d/mirrorlist
+sudo pacman -Sy
+
+# 必要なパッケージをインストール
+sudo pacman -S --needed wget python python-sphinx_rtd_theme \
+python-typing_extensions python-pydantic \
+python-pydantic-core python-annotated-types python-cryptography \
+python-pyparted python-textual
+
+# archinstall の開発版をダウンロード
+wget https://github.com/archlinux/archinstall/archive/\
+refs/heads/master.zip -O archinstall-master.zip
+bsdunzip archinstall-master.zip
+
+# archinstall を実行
+cd archinstall-master/
+sudo python -m archinstall</code></pre>
+<h2 id="実行時の動画">実行時の動画</h2>
+<p>動画は vokoscreenNG で作成した。</p>
+<p><video src="images/archinstall/archinstall.mp4" controls=""><a
+href="images/archinstall/archinstall.mp4">Video</a></video></p>
+<p>カーソルで移動。Enter で決定。「/」で選択肢を絞り込む。<br />
+例えば「/ja」と入力すれば、「ja」を含む選択肢が表示される。</p>
+<p>パーティションのサイズは次のようにしています。余裕をもたせるなら「/」は
+30000 MiB にする。</p>
+<table>
+<thead>
+<tr>
+<th>パーティション</th>
+<th>サイズ</th>
+<th>フォーマット</th>
+<th>ファイルシステム</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/boot</td>
+<td>2048 MiB</td>
+<td>する</td>
+<td>fat32</td>
+</tr>
+<tr>
+<td>/</td>
+<td>20000 MiB</td>
+<td>する</td>
+<td>ext4</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>残り全部</td>
+<td>しない</td>
+<td>ext4</td>
+</tr>
+</tbody>
+</table>
+<p>「/home」は初めて作成する場合のみフォーマット。</p>
+<p>インストールが終わったら再起動して<a
+href="arch_linux_01.html">設定を行う</a>。</p>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>

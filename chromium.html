@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-10-04" />
+  <title>Chromium の設定</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Chromium の設定</h1>
+<p class="date">2025-10-04</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#最初に行うこと" id="toc-最初に行うこと">最初に行うこと</a>
+<ul>
+<li><a href="#設定画面の文字を大きくする"
+id="toc-設定画面の文字を大きくする">設定画面の文字を大きくする</a></li>
+<li><a href="#ブックマークバーを表示"
+id="toc-ブックマークバーを表示">ブックマークバーを表示</a></li>
+<li><a href="#ブックマークをインポート"
+id="toc-ブックマークをインポート">ブックマークをインポート</a></li>
+<li><a href="#ファイルの保存場所を確認するをオンにする"
+id="toc-ファイルの保存場所を確認するをオンにする">「ファイルの保存場所を確認する」をオンにする</a></li>
+<li><a href="#入力補完を無効にする"
+id="toc-入力補完を無効にする">入力補完を無効にする</a></li>
+<li><a href="#プライバシー情報の取得をブロック"
+id="toc-プライバシー情報の取得をブロック">プライバシー情報の取得をブロック</a></li>
+<li><a href="#翻訳ツールを非表示にする"
+id="toc-翻訳ツールを非表示にする">翻訳ツールを非表示にする</a></li>
+<li><a href="#検索エンジンを変更"
+id="toc-検索エンジンを変更">検索エンジンを変更</a></li>
+</ul></li>
+<li><a href="#拡張機能を追加"
+id="toc-拡張機能を追加">拡張機能を追加</a></li>
+<li><a href="#検索エンジンを追加"
+id="toc-検索エンジンを追加">検索エンジンを追加</a></li>
+<li><a href="#tver-をchromiumで視聴" id="toc-tver-をchromiumで視聴">TVer
+をChromiumで視聴</a></li>
+<li><a href="#設定と拡張機能をバックアップ"
+id="toc-設定と拡張機能をバックアップ">設定と拡張機能をバックアップ</a></li>
+<li><a href="#ブックマークバーを1列にする"
+id="toc-ブックマークバーを1列にする">ブックマークバーを1列にする</a></li>
+</ul>
+</nav>
+<h2 id="最初に行うこと">最初に行うこと</h2>
+<h3 id="設定画面の文字を大きくする">設定画面の文字を大きくする</h3>
+<p>chrome://settings/ を開く。文字を大きくするときは Ctrl
+を押したままマウスホイールを上に回す。小さくするときは Ctrl
+を押したままマウスホイールを下に回す。デフォルトに戻すときは「Ctrl+0」。</p>
+<h3 id="ブックマークバーを表示">ブックマークバーを表示</h3>
+<p>chrome://settings/appearance を開いて、「ブックマーク
+バーを表示する」をオンにする。</p>
+<h3 id="ブックマークをインポート">ブックマークをインポート</h3>
+<p>chrome://settings/importData を開いて、ブックマークをインポート。</p>
+<h3
+id="ファイルの保存場所を確認するをオンにする">「ファイルの保存場所を確認する」をオンにする</h3>
+<p>chrome://settings/downloads
+を開いて、「保存先」をホームディレクトリにする。「ダウンロード前に各ファイルの保存場所を確認する」をオンにする。</p>
+<h3 id="入力補完を無効にする">入力補完を無効にする</h3>
+<p>chrome://settings/syncSetup
+を開いて、「検索候補の関連性を高める」をオフにする。</p>
+<h3
+id="プライバシー情報の取得をブロック">プライバシー情報の取得をブロック</h3>
+<p>各ページを開いて「許可しない」を選択。<br />
+chrome://settings/content/camera<br />
+chrome://settings/content/microphone<br />
+chrome://settings/content/notifications</p>
+<h3 id="翻訳ツールを非表示にする">翻訳ツールを非表示にする</h3>
+<p>chrome://settings/languages を開いて「Google
+翻訳を使用する」をオフにする。<br />
+この場合でもサイト内で右クリックすれば「日本語に翻訳」を選択できる。</p>
+<h3 id="検索エンジンを変更">検索エンジンを変更</h3>
+<p>chrome://settings/searchEngines
+を開いて「追加」をクリックし、次のように設定。</p>
+<table>
+<thead>
+<tr>
+<th>検索エンジン</th>
+<th>キーワード</th>
+<th>URL（%s=検索語句）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google</td>
+<td>g</td>
+<td>https://www.google.com/search?q=%s</td>
+</tr>
+</tbody>
+</table>
+<p>右横の「︙」をクリックして「デフォルトに設定」をクリック。<br />
+アドレスバーに「g(スペース)検索語句」と入力することで、Google
+検索できるようになる。</p>
+<h2 id="拡張機能を追加">拡張機能を追加</h2>
+<p>Advanced Font Settings<br />
+Authenticator<br />
+Blank New Tab Page<br />
+Cache Cleaner<br />
+Clear Downloads<br />
+Close Left<br />
+Close Others<br />
+Close Right<br />
+Context Menu Search<br />
+Cookie Auto Delete<br />
+Enhancer for YouTube™<br />
+Get cookies.txt LOCALLY<br />
+Hide Google AI Overviews<br />
+Image downloader - Imageye<br />
+Open pop-up as tab<br />
+ShowPassword<br />
+uBlock Origin Lite<br />
+User-Agent Switcher and Manager</p>
+<h2 id="検索エンジンを追加">検索エンジンを追加</h2>
+<p>chrome://settings/searchEngines
+を開いて「追加」をクリックし、次のように設定する。</p>
+<table>
+<thead>
+<tr>
+<th>検索エンジン</th>
+<th>キーワード</th>
+<th>URL（%s=検索語句）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google</td>
+<td>g</td>
+<td>https://www.google.com/search?q=%s</td>
+</tr>
+<tr>
+<td>Google En</td>
+<td>ge</td>
+<td>https://www.google.co.jp/search?q=%s&amp;hl=en&amp;lr=lang_en</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td>a</td>
+<td>https://www.amazon.co.jp/s?k=%s</td>
+</tr>
+<tr>
+<td>ヨドバシ</td>
+<td>yo</td>
+<td>https://www.yodobashi.com/?word=%s</td>
+</tr>
+<tr>
+<td>楽天</td>
+<td>r</td>
+<td>https://search.rakuten.co.jp/search/mall/%s</td>
+</tr>
+<tr>
+<td>TVer</td>
+<td>t</td>
+<td>https://tver.jp/search/%s</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td>y</td>
+<td>https://www.youtube.com/results?search_query=%s</td>
+</tr>
+<tr>
+<td>X</td>
+<td>x</td>
+<td>https://nitter.net/search?f=tweets&amp;q=%s&amp;since=&amp;until=&amp;near=</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tver-をchromiumで視聴">TVer をChromiumで視聴</h2>
+<p>「User-Agent Switcher and Manager」をインストール。</p>
+<p><img src="images/chromium/chromium-10.webp" /></p>
+<p>右上の「拡張機能」をクリックし、「User-Agent
+Switcher」のアイコンをツールバーに固定。</p>
+<p><img src="images/chromium/chromium-11.webp" /></p>
+<p>「User-Agent Switcher」のアイコンをクリック。<br />
+設定メニューが出るので1番上の Chrome を選択。<br />
+「Apply (all tabs)」をクリック。</p>
+<p><img src="images/chromium/chromium-12.webp" /></p>
+<p>「User-Agent
+Switcher」のアイコンを右クリックしてオプションを開く。<br />
+「White-List Mode」にチェックを入れ、次のサイトを追加。</p>
+<pre><code>tver.jp, abema.tv, radiko.jp, news.yahoo.co.jp</code></pre>
+<p>画面1番下の「Save」を押す。</p>
+<h2 id="設定と拡張機能をバックアップ">設定と拡張機能をバックアップ</h2>
+<pre><code>rsync -av \
+--delete \
+--delete-excluded \
+--exclude=*cache \
+--exclude=*Cache \
+--exclude=Default/Service\ Worker \
+--exclude=OnDeviceHeadSuggestModel \
+--exclude=Safe\ Browsing \
+--exclude=screen_ai \
+$HOME/.config/chromium/* $HOME/chromium_bak</code></pre>
+<p>バックアップから復元するときは次のように行う。</p>
+<pre><code>mv ~/.config/chromium ~/.config/chromium_bak
+mv chromium_bak ~/.config/chromium</code></pre>
+<h2 id="ブックマークバーを1列にする">ブックマークバーを1列にする</h2>
+<p>chrome://bookmarks/ を開いて Bookmarks
+フォルダを作り、そこにすべてのブックマークを入れる。</p>
+<p><img src="images/chromium/chromium-01.webp" /></p>
+<p>ブックマークバーがこのように表示される。</p>
+<p><img src="images/chromium/chromium-09.webp" /></p>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>

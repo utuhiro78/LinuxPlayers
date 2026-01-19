@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-12-05" />
+  <title>Arch Linux の設定1</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Arch Linux の設定1</h1>
+<p class="date">2025-12-05</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#最初に行うこと"
+id="toc-最初に行うこと">最初に行うこと</a></li>
+<li><a href="#日本語を入力できるようにする"
+id="toc-日本語を入力できるようにする">日本語を入力できるようにする</a>
+<ul>
+<li><a href="#fcitx5-と-mozc-をインストール"
+id="toc-fcitx5-と-mozc-をインストール">Fcitx5 と Mozc
+をインストール</a></li>
+<li><a href="#fcitx5-を設定" id="toc-fcitx5-を設定">Fcitx5
+を設定</a></li>
+<li><a href="#mozc-の変換精度が下がってきた場合"
+id="toc-mozc-の変換精度が下がってきた場合">Mozc
+の変換精度が下がってきた場合</a></li>
+</ul></li>
+</ul>
+</nav>
+<h2 id="最初に行うこと">最初に行うこと</h2>
+<pre><code>sudo pacman -S --needed wget
+mkdir -p ~/tmp_arch
+cd ~/tmp_arch/
+
+# [CachyOS] デフォルトシェルを bash に変更
+chsh -s /usr/bin/bash
+
+# [CachyOS] 起動時のロゴ表示を無効にする
+cp /etc/sdboot-manage.conf .
+sed -i -e &#39;s,LINUX_OPTIONS=\&quot;.*splash\&quot;,LINUX_OPTIONS=\&quot;\&quot;,g&#39; sdboot-manage.conf
+sudo mv sdboot-manage.conf /etc/
+sudo sdboot-manage gen
+
+# [archinstall] ログを削除
+sudo rm -rf /var/log/archinstall/
+
+# 高速なダウンロードサーバを選択
+sudo pacman -S --needed archlinux-keyring
+sudo pacman -S --needed reflector rsync
+sudo reflector -c jp -f 5 --save /etc/pacman.d/mirrorlist
+sudo pacman -Sy
+
+# [CachyOS] 高速なダウンロードサーバを選択
+sudo cachyos-rate-mirrors
+
+# AUR パッケージをビルドするときのスレッド数を論理プロセッサ数にする
+cp /etc/makepkg.conf .
+sed -i -e &#39;s,#MAKEFLAGS=&quot;-j2&quot;,MAKEFLAGS=&quot;-j\$(nproc)&quot;,g&#39; makepkg.conf
+sudo mv makepkg.conf /etc/
+
+# debug パッケージを作らない
+cp /etc/makepkg.conf .
+sed -i -e &#39;s,purge\ debug,purge\ \!debug,g&#39; makepkg.conf
+sudo mv makepkg.conf /etc/
+
+# [CachyOS, EndeavourOS] yay をインストール
+sudo pacman -S --needed yay
+
+# [Arch Linux] yay をインストール
+# wget -N https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz
+# tar -xf yay-bin.tar.gz
+# cd yay-bin/
+# makepkg -is
+# cd ~/tmp_arch/
+
+# パッケージのキャッシュを削除
+yay -Scc
+
+# パッケージのキャッシュディレクトリを /tmp に変更（再起動するとキャッシュが空になる）
+cp /etc/pacman.conf .
+sed -i -e &#39;s,#CacheDir\ \ \ \ \=\ \/var,CacheDir\ \ \ \ \ \=\ \/tmp,g&#39; pacman.conf
+sudo mv pacman.conf /etc/
+
+# DNSリゾルバを Cloudflare に変更
+printf &quot;[main]
+dns=none&quot; &gt; NetworkManager.conf
+sudo mv NetworkManager.conf /etc/NetworkManager/
+
+printf &quot;nameserver 2606:4700:4700::1111
+nameserver 2606:4700:4700::1001&quot; &gt; resolv.conf
+sudo mv resolv.conf /etc/
+
+# DNSリゾルバを Google Public DNS に変更する場合
+# printf &quot;nameserver 2001:4860:4860::8888
+# nameserver 2001:4860:4860::8844&quot; &gt; resolv.conf
+# sudo mv resolv.conf /etc/
+
+# NetworkManager を再起動してDNSサーバを確認
+sudo systemctl restart NetworkManager
+yay -S --needed bind
+dig https://www.youtube.com | grep SERVER
+# ;; SERVER: 2606:4700:4700::1111
+
+# 時刻サーバを日本のものに変更
+yay -S --needed ntp
+
+printf &#39;server 0.jp.pool.ntp.org iburst
+server 1.jp.pool.ntp.org iburst
+server 2.jp.pool.ntp.org iburst
+server 3.jp.pool.ntp.org iburst
+&#39; &gt; ntp.conf
+
+sudo mv ntp.conf /etc/ntp.conf
+sudo systemctl enable ntpd
+
+# ntpd の動作確認
+sudo systemctl start ntpd
+systemctl status ntpd | grep Active
+# Active: active (running)
+
+# 「デスクトップ」などのディレクトリが作られるのを止める
+printf &#39;XDG_DESKTOP_DIR=&quot;$HOME&quot;
+XDG_DOWNLOAD_DIR=&quot;$HOME&quot;
+XDG_TEMPLATES_DIR=&quot;$HOME&quot;
+XDG_PUBLICSHARE_DIR=&quot;$HOME&quot;
+XDG_DOCUMENTS_DIR=&quot;$HOME&quot;
+XDG_MUSIC_DIR=&quot;$HOME&quot;
+XDG_PICTURES_DIR=&quot;$HOME&quot;
+XDG_VIDEOS_DIR=&quot;$HOME&quot;
+&#39; &gt; ~/.config/user-dirs.dirs
+
+# コアダンプを無効にする
+printf &quot;kernel.core_pattern=|/bin/false&quot; &gt; 50-coredump.conf
+sudo mv 50-coredump.conf /etc/sysctl.d/50-coredump.conf
+sudo sysctl -p /etc/sysctl.d/50-coredump.conf
+
+# 既存のダンプファイルを削除
+sudo rm /var/lib/systemd/coredump/*
+
+# noto-fonts-cjk をインストール
+yay -S --needed noto-fonts-cjk
+
+# ホームディレクトリに NotoSansCJK-Regular.ttc をインストール
+# システムに日本語フォントが存在しない場合でも、
+# 管理者権限で実行するアプリ以外なら日本語を表示できるようになる
+mkdir -p ~/.local/share/fonts/
+cp -f /usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc ~/.local/share/fonts/
+
+# ディスプレイマネージャのフォントを noto-fonts-cjk に変更
+cp /etc/fonts/conf.d/65-nonlatin.conf .
+sed -i -e &#39;s,Artsounk,Noto\ Serif\ CJK\ JP,g&#39; 65-nonlatin.conf
+sed -i -e &#39;s,Nachlieli,Noto\ Sans\ CJK\ JP,g&#39; 65-nonlatin.conf
+sed -i -e &#39;s,Miriam\ Mono,Noto\ Sans\ Mono\ CJK\ JP,g&#39; 65-nonlatin.conf
+sudo mv 65-nonlatin.conf /etc/fonts/conf.d/
+
+# ディスプレイマネージャを SDDM に変更
+# Xfce 使用時はログイン画面で Wayland 以外を選択
+yay -S --needed sddm
+sudo systemctl --force enable sddm.service
+
+# AMD の GPU を使用する場合: ドライバをインストール
+yay -S --needed xf86-video-amdgpu vulkan-radeon libva-utils</code></pre>
+<h2 id="日本語を入力できるようにする">日本語を入力できるようにする</h2>
+<h3 id="fcitx5-と-mozc-をインストール">Fcitx5 と Mozc
+をインストール</h3>
+<pre><code>yay -S --needed fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt fcitx5-mozc-ut
+
+# Fcitx5 をデフォルトの入力メソッドフレームワークにする
+printf &#39;export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+&#39; &gt; ~/.xprofile</code></pre>
+<p>設定を有効にするためログアウトしてログイン。</p>
+<h3 id="fcitx5-を設定">Fcitx5 を設定</h3>
+<pre><code>fcitx5-configtool </code></pre>
+<p><img src="images/arch_01/arch_29.webp" /><br />
+左側の「現在の入力メソッド」に Mozc があるのを確認する。<br />
+ない場合は右側の「有効な入力メソッド」から追加して、「適用」を押す。</p>
+<p><img src="images/arch_01/arch_22.webp" /><br />
+「グローバルオプション」タブを開き、一番下までスクロール。<br />
+「第1入力メソッドの情報を表示する」のチェックを外して、「適用」を押す。</p>
+<p><img src="images/arch_01/arch_23.webp" /><br />
+「アドオン」タブを開き、検索欄に「クラシック」と入力。<br />
+ヒットした「クラシックユーザーインタフェース」の「設定」を押す。</p>
+<p><img src="images/arch_01/arch_24.webp" /><br />
+フォントを変更。</p>
+<p><img src="images/arch_01/arch_25.webp" /><br />
+「アドオン」タブを開き、検索欄に「mozc」と入力。<br />
+ヒットした「Mozc」の「設定」を押す。</p>
+<p><img src="images/arch_01/arch_26.webp" /><br />
+「用例を表示」を「ホットキー」にする。<br />
+「プリエディットカーソルをプリエディットの先頭に固定する」のチェックを外す。</p>
+<h3 id="mozc-の変換精度が下がってきた場合">Mozc
+の変換精度が下がってきた場合</h3>
+<pre><code>/usr/lib/mozc/mozc_tool --mode=config_dialog</code></pre>
+<p>「辞書」タブを開き、「学習履歴のクリア」をクリック。</p>
+<p><a href="index.html">HOME</a></p>
+</body>
+</html>
