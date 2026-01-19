@@ -23,7 +23,7 @@ def main():
     # "12393381_3840_2160_60fps_480.mp4" is resized to 854:480.
     if os.path.exists('12393381_3840_2160_60fps_480.mp4') is False:
         download_file(
-            'http://linuxplayers.g1.xrea.com/images/mpv/' +
+            'https://utuhiro78.github.io/linuxplayers/images/mpv/' +
             '12393381_3840_2160_60fps_480.mp4',
             '12393381_3840_2160_60fps_480.mp4')
 
