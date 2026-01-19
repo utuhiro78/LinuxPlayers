@@ -253,7 +253,7 @@ License: [English](https://www.pexels.com/license/), [日本語](https://www.pex
 縦480にリサイズした画像を全画面にアップスケール。
 
 ```
-mpv http://linuxplayers.g1.xrea.com/images/mpv/pexels-liam-anderson-411198-1458332_480.jpg --fs --pause
+mpv https://utuhiro78.github.io/linuxplayers/images/mpv/pexels-liam-anderson-411198-1458332_480.jpg --fs --pause
 ```
 
 「Ctrl」を押したまま 0 から 9 まで押していき、違いを比較する。
@@ -283,7 +283,7 @@ License: [画像は常識の範囲でご自由にお使いください。](https
 縦480にリサイズした画像を全画面にアップスケール。
 
 ```
-mpv http://linuxplayers.g1.xrea.com/images/mpv/chihiro030_480.jpg --fs --pause
+mpv https://utuhiro78.github.io/linuxplayers/images/mpv/chihiro030_480.jpg --fs --pause
 ```
 
 「Ctrl」を押したまま 0 から 9 まで押していき、違いを比較する。
@@ -314,7 +314,7 @@ License: [English](https://www.pexels.com/license/), [日本語](https://www.pex
 縦480にリサイズした動画をノーウェイトで全画面再生して、終了までの時間を計測。
 
 ```
-wget -N http://linuxplayers.g1.xrea.com/images/mpv/12393381_3840_2160_60fps_480.mp4
+wget -N https://utuhiro78.github.io/linuxplayers/images/mpv/12393381_3840_2160_60fps_480.mp4
 
 # SGSR.glsl で再生する場合
 time mpv --audio=no --untimed=yes --video-sync=display-desync --vulkan-swap-mode=immediate --opengl-swapinterval=0 --glsl-shaders="~~/shaders/SGSR.glsl" --fs 12393381_3840_2160_60fps_480.mp4
