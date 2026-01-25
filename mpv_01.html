@@ -149,6 +149,14 @@ WHEEL_DOWN ignore
 WHEEL_LEFT ignore
 WHEEL_RIGHT ignore
 
+# PGUP/PGDWN で10分移動
+PGUP seek 600
+PGDWN seek -600
+
+# Shift+PGUP/PGDWN でチャプター移動
+Shift+PGUP add chapter 1
+Shift+PGDWN add chapter -1
+
 # マウスの進むボタンと戻るボタンでプレイリスト内を移動
 # その際にプレイリストを2秒表示
 MBTN_FORWARD playlist-next; show-text ${playlist} 2000

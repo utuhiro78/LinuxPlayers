@@ -1,6 +1,6 @@
 ---
 title: KDE の日本語翻訳ガイド
-date: 2026-01-02
+date: 2026-01-26
 ---
 
 ## はじめに
@@ -42,10 +42,6 @@ sudo cp ark.mo /usr/share/locale/ja/LC_MESSAGES/
 注意事項を過剰に気にする必要はありません。気軽に翻訳してください。「ディレクトリー」と翻訳した場合でも、「ディレクトリ」への置換は一瞬でできます。
 
 ## 翻訳したファイルをメーリングリストに送付
-
-> KDE の GitLab で Issues として投稿[できるようになる](https://invent.kde.org/websites/jp-kde-org/-/merge_requests/39)ようです。
-> KDE Japan の Issues はこちら。
-> [https://invent.kde.org/teams/kde-japan/l10n/-/issues](https://invent.kde.org/teams/kde-japan/l10n/-/issues)
 
 メーリングリストに送付する場合は、[こちら](https://mail.kde.org/mailman/listinfo/kde-jp)にメールアドレスを入力して、メーリングリストへの入会を申し込んでください。名前とパスワードは省略可能。
 退会するときは同じページに「Kde-jp からの退会」のボックスがあるので、メールアドレスを入力。入会も退会も数分で自動的に処理されます。

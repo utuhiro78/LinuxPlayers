@@ -1,6 +1,6 @@
 ---
 title: CachyOS のインストール
-date: 2025-12-05
+date: 2026-01-26
 ---
 
 ## CachyOS とは
@@ -17,7 +17,8 @@ CPUに応じて最適化されたパッケージを使用するので、性能�
 
 ## Ventoy をUSBメモリにインストール
 
-[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。Ventoy のインストール後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーして、起動するOSを選択することもできる。
+[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。
+Ventoy をUSBドライブにインストールした後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーすると、起動するOSを選択できる。
 
 ventoy-*-linux.tar.gz をダウンロードして展開。
 

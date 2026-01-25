@@ -1,6 +1,6 @@
 ---
 title: Calam-Arch-Installer のインストール
-date: 2025-03-10
+date: 2026-01-26
 ---
 
 ## Calam-Arch-Installer とは
@@ -13,7 +13,8 @@ Calam-Arch-Installer は、Arch Linux を Calamares でインストールする�
 
 ## Ventoy をUSBメモリにインストール
 
-[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。Ventoy のインストール後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーして、起動するOSを選択することもできる。
+[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。
+Ventoy をUSBドライブにインストールした後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーすると、起動するOSを選択できる。
 
 ventoy-*-linux.tar.gz をダウンロードして展開。
 

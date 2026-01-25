@@ -1,6 +1,6 @@
 ---
 title: EndeavourOS のインストール
-date: 2025-12-11
+date: 2026-01-26
 ---
 
 ## EndeavourOS とは
@@ -17,7 +17,8 @@ CachyOS などと比べて[独自パッケージが少なく](https://github.com
 
 ## Ventoy をUSBメモリにインストール
 
-[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。Ventoy のインストール後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーして、起動するOSを選択することもできる。
+[Ventoy](https://github.com/ventoy/Ventoy/releases) はブータブルUSBドライブを作成するツール。
+Ventoy をUSBドライブにインストールした後にOSのISOファイルをUSBメモリにコピーすると、そのOSを起動できるようになる。複数のISOファイルをコピーすると、起動するOSを選択できる。
 
 ventoy-*-linux.tar.gz をダウンロードして展開。
 

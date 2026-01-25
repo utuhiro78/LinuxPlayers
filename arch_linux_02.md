@@ -12,6 +12,13 @@ sudo sh spectre-meltdown-checker.sh
 
 「SUMMARY」がすべて「OK」（緑色）になっていれば問題ない。
 
+### ディスプレイマネージャを SDDM に変更
+
+```
+yay -S --needed sddm
+sudo systemctl --force enable sddm.service
+```
+
 ### Wine の設定
 
 Arch の Wine パッケージは [wow64 ビルドに変更された](https://archlinux.org/news/transition-to-the-new-wow64-wine-and-wine-staging/)。これにより multilib が不要になった。

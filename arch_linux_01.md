@@ -131,11 +131,6 @@ sed -i -e 's,Nachlieli,Noto\ Sans\ CJK\ JP,g' 65-nonlatin.conf
 sed -i -e 's,Miriam\ Mono,Noto\ Sans\ Mono\ CJK\ JP,g' 65-nonlatin.conf
 sudo mv 65-nonlatin.conf /etc/fonts/conf.d/
 
-# ディスプレイマネージャを SDDM に変更
-# Xfce 使用時はログイン画面で Wayland 以外を選択
-yay -S --needed sddm
-sudo systemctl --force enable sddm.service
-
 # AMD の GPU を使用する場合: ドライバをインストール
 yay -S --needed xf86-video-amdgpu vulkan-radeon libva-utils
 ```
